@@ -1,0 +1,31 @@
+{
+	"name": "number-pairings",
+	"description": "JavaScript number pairings functions",
+	"keywords": [
+		"javascript",
+		"pairing",
+		"pairings",
+		"Cantor"
+	],
+	"author": "Jens Kubacki",
+	"version": "1.0.0",
+	"license": "MIT",
+	"engines": {
+		"node": ">=7.4.0"
+	},
+	"directories": {
+		"lib": "./lib"
+	},
+	"main": "./lib/pairings.js",
+	"files": [
+		"lib"
+	],
+	"homepage": "https://github.com/j-k/number-pairings",
+	"bugs": {
+		"url": "https://github.com/j-k/number-pairings/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/j-k/number-pairings.git"
+	}
+}
