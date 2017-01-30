@@ -13,6 +13,10 @@ export ext = ( x ) -> x - tn tr( x )
 export min = Math.min
 # max
 export max = Math.max
+# power
+export pow = Math.pow
+# log (2)
+export log = Math.log
 #  minimum bound (0 means infinity)
 export minBound = ( a, b ) ->
   if a is 0 then b

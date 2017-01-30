@@ -10,7 +10,7 @@
 # all numbers are assumed to be positive integers including zero
 # there are also half-pairings for commutative relations
 
-{say, fl, sq, tn, tr, ext, min, max, minBound, list, plot} = require './helpers'
+{say, fl, sq, tn, tr, ext, min, max, pow, log, minBound, list, plot} = require './helpers'
 
 # Cantor pairing
 Cantor =
@@ -40,6 +40,20 @@ elegant =
       [ t - sq_z, sq_z ]
   b: [ 0 0 0 ]
 
+# power of two pairing
+poto =
+  z: ( x, y ) ->
+    pow( 2, x ) * ( 2 * y + 1 ) - 1
+  xy: ( z ) ->
+    _z = z + 1
+    for x from 0 til _z
+      p = fl( pow( 2, x ) )
+      q = _z / p
+      if  q % 2 is 1 then
+        return [ x, fl( q / 2 ) ]
+  b: [ 0 0 0 ]
+
+# half pairing (only x<=y pairs)
 half =
   z: ( x, y ) ->
     _x = max x, y
@@ -84,12 +98,15 @@ test-examples = !->
   say \Cantor\n
   say list Cantor
   say plot Cantor
-  say \half\n
-  say list half
-  say plot half
   say \elegant\n
   say list elegant
   say plot elegant
+  say \poto\n
+  say list poto
+  say plot poto
+  say \half\n
+  say list half
+  say plot half
   say \field\n
   f = field 3, 4
   say f.b
@@ -104,8 +121,7 @@ test-examples = !->
   say list sx
   say plot sx
 
-
-if module.parent?
-  module.exports = { Cantor, elegant, field, stack-y, stack-x }
-else
+if require.main is module
   test-examples!
+else
+  module.exports = { Cantor, elegant, poto, half, field, stack-y, stack-x }
