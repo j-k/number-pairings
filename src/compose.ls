@@ -2,6 +2,7 @@
 # out of binary pairings
 # input is a list of element numbers per dimension
 
+{last} = require './helpers'
 {field, stack-x, stack-y, Cantor} = require './pairings'
 
 # default infinite-infinite pairing
@@ -18,11 +19,11 @@ select = ( x, y, iip=def-iip ) ->
 compose = ( l, iip=def-iip ) ->
   pairings = [ select( l[0], l[1] ) ]
   for n from 2 til l.length
-    new-pairing = select( pairings[pairings.length-1].b[2], l[n] )
+    new-pairing = select( last( pairings ).b[2], l[n] )
     pairings.push new-pairing
-  pairings
-
+  b: l.concat [ last( pairings ).b[2] ]
+  
 # todo: test and complete this
 
 if require.main is module
-  console.log compose [1,2,3,4]
+  console.log compose [1,2,3,4,5]
