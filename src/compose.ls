@@ -19,7 +19,10 @@ compose = ( l, iip=def-iip ) ->
   pairings = [ select( l[0], l[1] ) ]
   for n from 2 til l.length
     new-pairing = select( pairings[pairings.length-1].b[2], l[n] )
-    p.push new-pairing
+    pairings.push new-pairing
   pairings
 
 # todo: test and complete this
+
+if require.main is module
+  console.log compose [1,2,3,4]
