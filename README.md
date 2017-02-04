@@ -39,7 +39,7 @@ Build from LiveScript: `lsc -co lib src`.
 ## Limitations
 
 - There are no overflow checks. Since the `z` is always in the order of a multiplication of `x` and `y` the library only works up to some numbers. There are no warnings given.
-- There are other number pairings. Some of them are not "dense", i.e. there are numbers not used by any pair. These other pairings
+- There are other number pairings. Some of them are not "dense", i.e. there are numbers not used by any pair. These other pairings are not considered here. Examples include the *Gödel numbering* (see link below) and the pairing used in the article "Primitive recursive functions" from Raphael M. Robinson (1947).
 
 ## Further links
 
