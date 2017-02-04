@@ -31,7 +31,7 @@ console.log( pair.xy( 100 ) );
 //> 100
 ```
 
-Replace `p.Cantor` with e.g. `p.Elegant` to try out the elegant pairing.
+Replace `p.Cantor` with e.g. `p.elegant` to try out the elegant pairing.
 
 ## Build
 Build from LiveScript: `lsc -co lib src`.
