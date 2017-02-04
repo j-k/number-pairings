@@ -3,12 +3,14 @@
 	"description": "JavaScript number pairings functions",
 	"keywords": [
 		"javascript",
+		"livescript",
 		"pairing",
 		"pairings",
-		"Cantor"
+		"Cantor",
+		"Gödel"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
