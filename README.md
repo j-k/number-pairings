@@ -1,6 +1,6 @@
 # number-pairings
 
-**JavaScript number pairings functions**
+**JavaScript number pairing functions**
 
 This is a fun project about [pairing functions](https://en.wikipedia.org/wiki/Pairing_function), the coding of two natural numbers into one and vice versa. Now implemented are:
 
