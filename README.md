@@ -7,7 +7,7 @@ This is a fun project about [pairing functions](https://en.wikipedia.org/wiki/Pa
 - Pairing for finite fields (both dimensions are limited).
 - Pairings for one finite and one infinite dimension.
 - [Cantor pairing](https://en.wikipedia.org/wiki/Pairing_function), it's inversion and a *half* variant for unique pairs.
-- [elegant pairing](szudzik.com/ElegantPairing.pdf) and it's inversion.
+- [elegant pairing](https://www.google.ch/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjUtpeoj_bRAhXDVxoKHYJBCGwQFggoMAA&url=http%3A%2F%2Fszudzik.com%2FElegantPairing.pdf&usg=AFQjCNHlytYIHiOiE0jqc8McfJwheyft8g) and it's inversion.
 - [POTO pairing](https://ch.mathworks.com/matlabcentral/fileexchange/44253-three-different-bijections-or-pairing-functions-between-n-and-n%5E2--including-cantor-polynomials-) and it's inversion. The formulas are derived from [here](http://www.cs.umb.edu/~marc/cs620/theo10-06.pdf). The inversion formula could not be found elsewhere.
 
 This JavaSript nodejs module is written in [LiveScript](http://livescript.net/). The JavaScript library resides in the `lib` folder.
