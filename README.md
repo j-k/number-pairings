@@ -18,7 +18,7 @@ This JavaSript nodejs module is written in [LiveScript](http://livescript.net/).
 
 1. Make a folder
 2. Open a console in that new folder
-3. Install with: `npm install number-pairings` (ignore the error messages).
+3. Install with: `npm install number-pairings` (ignore the error messages)
 
 ## Usage
 
