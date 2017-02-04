@@ -45,6 +45,7 @@ Build from LiveScript: `lsc -co lib src`.
 
 - [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering) is also related to pairing functions. It works for more than two input numbers. Coding more numbers can be achieved with this library here by using the pairings recursively.
 - Some more [background](http://www.cs.upc.edu/~alvarez/calculabilitat/enumerabilitat.pdf) about pairing functions.
+- Another [JavaScript code](https://codepen.io/LiamKarlMitchell/pen/xnEca) of Cantor pairing. 
 
 ## License
 
