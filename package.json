@@ -7,10 +7,12 @@
 		"pairing",
 		"pairings",
 		"Cantor",
-		"Gödel"
+		"Gödel",
+		"diagonalization",
+		"infinity"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
