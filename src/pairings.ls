@@ -1,4 +1,4 @@
-# this modules implements some binary zings
+# this modules implements some binary pairings
 # these are objects like {z:...,xy:...,bounds:...},
 # where
 #   z: ( x, y ) -> z

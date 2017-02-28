@@ -46,6 +46,8 @@ export maxBoundOf = ( B ) ->
   [pos, max]
 export deleteAt = ( A, pos ) ->
   A[0 til pos].concat A[pos+1 til A.length]
+export pushFront = ( e, a ) ->
+  [e].concat a
 
 # list pairings zings
 export list = ( p, sz=10 ) ->
