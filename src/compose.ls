@@ -21,14 +21,14 @@ compose = ( l, iip=def-iip ) ->
   pairings = [ select( l[arity-2], l[arity-1] ) ]
   for i in [arity-3 to 0 by -1]
     new-pairing = select( l[i], pairings[0].b[2] )
-    say new-pairing
+    #say new-pairing
     pairings = pushFront new-pairing, pairings
   say pairings
   b: l.concat [ pairings[0].b[2] ]
   join: ( l ) ->
     k = l.length
     if k isnt arity then return
-    n = pairings[k-1].z( l[k-2], l[k-1] )
+    n = pairings[k-2].z( l[k-2], l[k-1] )
     for i in [k-3 to 0 by -1]
       n = pairings[i].z( l[i], n )
     n
@@ -42,5 +42,5 @@ compose = ( l, iip=def-iip ) ->
 
 if require.main is module
   c = compose [2,3]
-  say c.join [0,0]
+  say c.join [1,2]
 else module.exports = { compose }
