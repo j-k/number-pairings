@@ -1,3 +1,4 @@
+# this file contains some helper functions
 # helpers I/O
 export say = console.log
 # helpers math

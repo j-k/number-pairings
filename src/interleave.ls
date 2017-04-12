@@ -1,97 +1,59 @@
-# helpers
-max = Number.MAX_SAFE_INTEGER
+# this file implements some interleavings
+{ Cantor } = require './pairings'
+{ last } = require './helpers'
 
-#  minimum bound (0 means infinity and is ignored)
-min-finite-bound = ( l ) ->
-  min = max
-  for i in l
-    if i > 0 and i < min
-      min = i
-  min
+# default infinite-infinite pairing
+def-iip = Cantor
 
-# first index of value
-index = ( l, val ) ->
+# indexify
+indexify = ( l ) ->
+
   for i, k in l
-    if i is val then return k
+    [ k, i ]
 
-# remove ith item
-remove = ( l, i ) ->
-  for item, k in l
-    if i isnt k then item else -1
+test = [0,1,0,2,0,3]
+itest = indexify test
 
-# eat item
-eat-item = ( l ) ->
-  min = min-finite-bound l
-  if min isnt max
-    mindex = index( l, min )
-    return [ [ [ mindex ], min ], remove( l , mindex ) ]
+console.log itest
 
-# minimum finite bounds
-min-finite-bounds = ( l ) ->
-  min = min-finite-bound l
-  for i, k in l
-    if i is min then [i, k]
-
-# get all indexes of value >=n or 0
-get-all-n-zero = ( l, n ) ->
-  for i, k in l
-    if i >= 0 or i is n
-      k
-
-# product of numbers > 0
-get-product = ( l ) ->
-  p = 1
+zero = ( l ) ->
   for i in l
-    if i > 0 then p *= i
-  p
+    [ i[0], 0 ]
 
-# remove all items of value n
-# removing here means setting to -1
-# others are down counted
-remove-down-count = ( l, n ) ->
-  for i in l
-    if i isnt 0
-      m = i - n
-      if m is 0 then -1
-      else m
-    else 0
+zeros = zero itest
+console.log zeros
 
-# eat field
-eat-field = ( l ) ->
-  min = min-finite-bound l
-  if min isnt max
-    items = get-all-n-zero l, min
-    product = get-product items
-    return [ [ items, min ], remove-down-count( l , min ) ]
+upcount = ( limits, state ) ->
+  _state = []
+  for i, k in state
+    if i[1] < limits[k][1] || limits[k][1] is 0
+      _state.push [ i[0], i[1]+1 ]
+  _state
 
-# all used up
-all-used = ( l ) ->
-  for i in l
-    if i > 0 then return false
+one = upcount( itest, zeros )
+two = upcount( itest, one )
+
+console.log two
+
+all-done = ( limits, state ) ->
+  for l in limits
+    is-done = l[1] is 0 or state[1] is l[1] - 1
+    if not is-done return false
   true
 
-example = [ 0, 3, 3, 4, 0, 7, 0 ]
 
-# get things done
-# [ [ [ 0, 1, 2, 3, 4, 5, 6 ], 3 ], [ 0, -1, -1, 1, 0, 4, 0 ] ]
-# [ [ [ 0, 3, 4, 5, 6 ], 1 ], [ 0, -2, -2, -1, 0, 3, 0 ] ]
-get-things-done = ( l, eat = eat-item ) ->
-  ate = [ eat l ]
-  do
-    rest = ate[ate.length-1][1]
-    is-used = all-used rest
-    if not is-used
-      ate.push eat rest
-  while not all-used rest
-  for a in ate
-    a[0]
+interleave = ( l, iip=def-iip  ) ->
+  a = []
+  limits = indexify l
+  count = zero limits
+  console.log count
+  count = upcount( limits, count )
+  console.log count
+  #do
+  #  a = a.concat count
+  #  count = upcount( limits, count )
+  #  console.log count
+  #while not all-zero count
+  a
 
-# build the functions
-interleave = ( l, eat = eat-item ) ->
-  finites = []
-  
-console.log get-things-done( example )
-#x = eat-field example
-#y = eat-field x[1]
-#console.log x, y
-#console.log eat-item example, 3
+console.log interleave test

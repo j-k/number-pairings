@@ -1,9 +1,9 @@
-# compose an n-ary pairing
-# out of binary pairings
-# input is a list of element numbers per dimension
+# compose an n-ary pairing out of binary pairings
+# - input is a list of element numbers per dimension
+# - zero elements means infinitely many
 
-{ last, pushFront, say } = require './helpers.ls'
-{ field, stack-x, stack-y, Cantor } = require './pairings.ls'
+{ last, pushFront, say } = require './helpers'
+{ field, stack-x, stack-y, Cantor } = require './pairings'
 
 # default infinite-infinite pairing
 def-iip = Cantor
@@ -16,14 +16,12 @@ select = ( x, y, iip=def-iip ) ->
   else field x, y
 
 # composition
-compose = ( l, iip=def-iip ) ->
+composition = ( l, iip=def-iip ) ->
   arity = l.length
   pairings = [ select( l[arity-2], l[arity-1] ) ]
   for i in [arity-3 to 0 by -1]
     new-pairing = select( l[i], pairings[0].b[2] )
-    #say new-pairing
     pairings = pushFront new-pairing, pairings
-  say pairings
   b: l.concat [ pairings[0].b[2] ]
   join: ( l ) ->
     k = l.length
@@ -33,14 +31,17 @@ compose = ( l, iip=def-iip ) ->
       n = pairings[i].z( l[i], n )
     n
   split: ( n ) ->
-    l = []
     [ x, y ] = pairings[0].xy( n )
-    for k from 1 to pairings.length
-      l.push x
-      [ x, y ] = pairings[k].xy( y )
+    l = [ x ]
+    if pairings.length > 1
+      for k from 1 til pairings.length
+        [ x, y ] = pairings[k].xy( y )
+        l.push x
+    l.push y
     l
 
 if require.main is module
-  c = compose [2,3]
-  say c.join [1,2]
-else module.exports = { compose }
+  c = composition [2,3]
+  #say c.join [0,0,3,4]
+  say c.split 0
+else module.exports = { composition }

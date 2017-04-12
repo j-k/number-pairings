@@ -1,16 +1,16 @@
 # this modules implements some binary pairings
-# these are objects like {z:...,xy:...,bounds:...},
-# where
+# - these are objects like {z:...,xy:...,bounds:...},
+# - where
 #   z: ( x, y ) -> z
 #     maps the z ( x, y ) uniquely to z
 #   xy: ( z ) -> ( x, y ) is the inverse of z
 #   and bounds are the bounds of the two inputs (bound[0], bound[1])
 #     and the output (bound[2])
-# a bound of 0 means unbounded, otherwise the bound is the maximum value plus one
-# all numbers are assumed to be positive integers including zero
-# there are also half-pairings for commutative relations
+# - a bound of 0 means unbounded, otherwise the bound is the maximum value plus one
+# - all numbers are assumed to be positive integers including zero
+# - there are also half-pairings for commutative relations
 
-{say, fl, sq, tn, tr, ext, min, max, pow, log, minBound, list, plot} = require './helpers'
+{ say, fl, sq, tn, tr, ext, min, max, pow, log, minBound, list, plot } = require './helpers'
 
 # Cantor pairing
 Cantor =
@@ -120,6 +120,9 @@ test-examples = !->
   sx = stack-x 3
   say list sx
   say plot sx
+  c = compose [2,3,4,5]
+  say c.join [0,0,3,4]
+  say c.split 114 # this is a special number that appears in the expansion of pi!
 
 if require.main is module
   test-examples!
