@@ -5,6 +5,41 @@
 # default infinite-infinite pairing
 def-iip = Cantor
 
+# zero base
+zero-base = ( length ) ->
+  for i from 0 til length
+    [ i, 0 ]
+
+# increment
+increment = ( state, limits ) ->
+  _state = []
+  for i, k in state
+    if i[1] < limits[k] || limits[k] is 0
+      _state.push [ i[0], i[1]+1 ]
+  _state
+
+limits = [1,0,2,0,3,0]
+zero = zero-base limits.length
+#console.log zero
+one = increment zero, limits
+#console.log one
+
+# check if all processed
+all-done = ( state, limits ) ->
+  for i, k in state
+    if limits[i[1]] isnt 0
+      #console.log i[1], limits[i[0]]-1
+      #console.log i[1] < limits[i[0]]-1
+      if i[1] < limits[i[0]]-1 then return false
+  true
+
+state = zero
+console.log all-done( state, limits )
+#while not all-done( state, limits )
+#  state = increment( state, limits )
+#  console.log state
+
+/*
 # indexify
 indexify = ( l ) ->
 
@@ -57,3 +92,4 @@ interleave = ( l, iip=def-iip  ) ->
   a
 
 console.log interleave test
+*/
