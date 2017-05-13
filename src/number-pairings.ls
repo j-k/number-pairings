@@ -1,3 +1,4 @@
+# this file gathers all stuff for the number pairings
 { Cantor, elegant, poto, half, field, stack-y, stack-x } = require './pairings'
 { composition } = require './composition'
 

@@ -7,38 +7,48 @@ def-iip = Cantor
 
 # zero base
 zero-base = ( length ) ->
-  for i from 0 til length
-    [ i, 0 ]
+  for k from 0 til length
+    [ k, 0 ]
 
 # increment
 increment = ( state, limits ) ->
   _state = []
-  for i, k in state
-    if i[1] < limits[k] || limits[k] is 0
-      _state.push [ i[0], i[1]+1 ]
+  for s, k in state
+    if s[1] < limits[k] || limits[k] is 0
+      _state.push [ s[0], s[1]+1 ]
   _state
 
 limits = [1,0,2,0,3,0]
 zero = zero-base limits.length
 #console.log zero
 one = increment zero, limits
+two = increment one, limits
 #console.log one
 
 # check if all processed
 all-done = ( state, limits ) ->
-  for i, k in state
-    if limits[i[1]] isnt 0
+  for s in state
+    limit = limits[s[0]]
+    if limit is 0 then continue
+    else
       #console.log i[1], limits[i[0]]-1
       #console.log i[1] < limits[i[0]]-1
-      if i[1] < limits[i[0]]-1 then return false
+      if s[1] < limit-1 then return false
   true
 
 state = zero
-console.log all-done( state, limits )
-#while not all-done( state, limits )
-#  state = increment( state, limits )
-#  console.log state
+console.log two
+#console.log all-done( zero, limits )
+#console.log all-done( one, limits )
+console.log all-done( two, limits )
+#console.log all-done( one, limits )
 
+/*
+while not all-done( state, limits )
+  console.log state
+  state = increment( state, limits )
+  #console.log state
+*/
 /*
 # indexify
 indexify = ( l ) ->
