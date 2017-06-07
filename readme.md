@@ -23,11 +23,11 @@ This JavaSript nodejs module is written in [LiveScript](http://livescript.net/).
 ## Usage
 
 ```javascript
-np = require( "number-pairings" );
-pair = np.Cantor;
-console.log( pair.xy( 100 ) );
+np = require( "number-pairings" )
+pair = np.Cantor
+console.log( pair.xy( 100 ) )
 // => [ 4, 9 ]
-> console.log( pair.z( 4, 9 ) );
+> console.log( pair.z( 4, 9 ) )
 // => 100
 ```
 
@@ -74,17 +74,17 @@ f.xy(1024)
 f = np.elegant
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
 f.z(10,34)
-// =1200
+// => 1200
 f.xy(1200)
 // => [ 10, 34 ]
 f = np.poto
-// ={ z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
+// => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
 f.z(10,34)
 // => 70655
 f.xy(70655)
 // => [ 10, 34 ]
 f = np.half
-// ={ z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
+// => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
 f.z(10,34)
 // => 605
 f.z(34,10)

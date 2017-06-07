@@ -41,7 +41,7 @@ composition = ( l, iip=def-iip ) ->
     l
 
 if require.main is module
-  c = composition [2,3]
-  #say c.join [0,0,3,4]
-  say c.split 0
+  c = composition [1,2,3]
+  say c.join [0,1,2]
+  say c.split 5
 else module.exports = { composition }

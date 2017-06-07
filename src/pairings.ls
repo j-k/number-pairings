@@ -120,9 +120,6 @@ test-examples = !->
   sx = stack-x 3
   say list sx
   say plot sx
-  c = compose [2,3,4,5]
-  say c.join [0,0,3,4]
-  say c.split 114 # this is a special number that appears in the expansion of pi!
 
 if require.main is module
   test-examples!
