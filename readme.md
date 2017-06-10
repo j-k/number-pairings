@@ -39,7 +39,7 @@ Build from LiveScript: `lsc -co lib src`.
 ## Limitations
 
 - There are no overflow checks. Since the `z` is always in the order of a multiplication of `x` and `y` the library only works up to some numbers. There are no warnings given.
-- There are other possible number pairings that could be included (e.g. [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering)). Some of them are not "dense", i.e. there are numbers not used by any pair. Here the focus is on dense pairings.
+- There are other possible number pairings that could be included (e.g. [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering)). Some of them are not "dense", i.e. more than one pair may encode a number. Here the focus is on dense pairings.
 
 ## Further links
 
