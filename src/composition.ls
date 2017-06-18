@@ -20,7 +20,7 @@ composition = ( l, iip=def-iip ) ->
   arity = l.length
   pairings = [ select( l[arity-2], l[arity-1] ) ]
   for i in [arity-3 to 0 by -1]
-    new-pairing = select( l[i], pairings[0].b[2] )
+    new-pairing = select( l[i], pairings[0].b[2], iip )
     pairings = pushFront new-pairing, pairings
   b: l.concat [ pairings[0].b[2] ]
   join: ( l ) ->
