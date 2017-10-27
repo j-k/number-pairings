@@ -46,7 +46,7 @@ Build from LiveScript: `lsc -co lib src`.
 
 - [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering) is also related to pairing functions. It works for more than two input numbers. Coding more numbers can be achieved with this library here by using the pairings recursively.
 - Some more [background](http://www.cs.upc.edu/~alvarez/calculabilitat/enumerabilitat.pdf) about pairing functions.
-- Another [JavaScript code](https://codepen.io/LiamKarlMitchell/pen/xnEca) of Cantor pairing.
+- Another [Cantor pairing JavaScript code](https://codepen.io/LiamKarlMitchell/pen/xnEca)  and [elegant pairing code](https://codepen.io/sachmata/post/elegant-pairing) on [codepen](https://codepen.io/#).
 
 ## License
 
@@ -62,8 +62,8 @@ np = require("number-pairings")
   poto: { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] },
   half: { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] },
   field: [Function: field],
-  stackY: [Function: stackY],
-  stackX: [Function: stackX],
+  stack_y: [Function: stack_y],
+  stack_x: [Function: stack_x],
   composition: [Function: composition] }
 */
 f = np.Cantor
@@ -98,12 +98,13 @@ f.z(1,2)
 // => 5
 f.z(2,2)
 undefined
-f = np.stackX(5)
+f = np.stack_x(5)
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 5, 0 ] }
 f.z(2,4)
 // => 14
 f.z(2,5)
 // => undefined
+// note: use stack_y the same way
 f.xy(14)
 // => [ 2, 4 ]
 f = np.composition([1,2,3,4])

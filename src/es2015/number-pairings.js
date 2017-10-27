@@ -10,23 +10,28 @@
 // - all numbers are assumed to be positive integers including zero
 // - there are also half-pairings for commutative relations
 
-//import { fl, sq, tn, tr, ext, min, max, pow, range } from './helpers'
+// todo: check bounds
 
 const fl = Math.floor
+const min = Math.min
+const max = Math.max
+const pow = Math.pow
 const sq = ( x ) => fl( Math.sqrt( x ) )
 const tn = ( x ) => x * ( x + 1 ) / 2 //  sum of all n <= x (Gauss) - triangle numaers
 const tr = ( x ) => fl( ( sq( 1 + x * 8 ) - 1 ) / 2 ) //  triangle root (inverse of tn())
 const ext = ( x ) => x - tn( tr( x ) ) //  excess over last triangle numaer
-const min = Math.min
-const max = Math.max
-const pow = Math.pow
-const range = (start, end) => { return [...Array(1+end-start).keys()].map(v => start+v) }
+//const range = (start, end) => {
+//  return [...Array(1+end-start).keys()].map(v => start+v)
+//}
+const pushFront = function(e, a){
+  return [e].concat(a);
+};
 
 // Cantor pairing
 export const Cantor = {
   z: ( x, y ) => tn( x + y ) + y,
   xy: ( z ) => {
-    t = tr( z )
+    let t = tr( z )
     return [
       ( t * ( t + 3 ) / 2 ) - z,
       z - ( ( t * ( t + 1 ) ) / 2 )
@@ -44,9 +49,9 @@ export const elegant = {
       return x * x + y;
   },
   xy: ( z ) => {
-    sq_z = sq( z )
+    let sq_z = sq( z )
     if ( sq_z * sq_z > z ) sq_z--
-    t = z - sq_z * sq_z
+    let t = z - sq_z * sq_z
     if (t < sq_z) return [ sq_z, t ]
     else return [ t - sq_z, sq_z ]
   },
@@ -57,10 +62,10 @@ export const elegant = {
 export const poto = {
   z: ( x, y ) => pow( 2, x ) * ( 2 * y + 1 ) - 1,
   xy: ( z ) => {
-    _z = z + 1
-    for( let x in range(0, _z-1) ) {
-      p = fl( pow( 2, x ) )
-      q = _z / p
+    let _z = z + 1
+    for( let x=0; x<_z; x++ ) {
+      let p = fl( pow( 2, x ) )
+      let q = _z / p
       if( q % 2 === 1 )
         return [ x, fl( q / 2 ) ]
     }
@@ -71,13 +76,13 @@ export const poto = {
 // half pairing (only x<=y pairs)
 export const half = {
   z: ( x, y ) => {
-    _x = max( x, y )
-    _y = min( x, y )
+    let _x = max( x, y )
+    let _y = min( x, y )
     return tn( _x ) + _y
   },
   xy: ( z ) => {
-    x = tr( z )
-    y = ext( z )
+    let x = tr( z )
+    let y = ext( z )
     return [ x, y ]
   },
   b: [ 0, 0, 0 ]
@@ -131,35 +136,36 @@ const select = ( x, y, iip = def_iip ) => {
   else return field( x, y )
 }
 
-/*
 // composition
-composition = ( l, iip = def_iip ) => {
-  arity = l.length
-  pairings = [ select( l[arity-2], l[arity-1] ) ]
-  for( i=arity-3; i>=0; i-- ) {
-    new_pairing = select( l[i], pairings[0].b[2], iip )
+export const composition = ( l, iip = def_iip ) => {
+  let arity = l.length
+  let pairings = [ select( l[arity-2], l[arity-1] ) ]
+  for( let i=arity-3; i>=0; i-- ) {
+    let new_pairing = select( l[i], pairings[0].b[2], iip )
     pairings = pushFront( new_pairing, pairings )
   }
   return {
     b: l.concat( [ pairings[0].b[2] ] ),
     join: ( l ) => {
-      k = l.length
-      //if k isnt arity then return
-      //n = pairings[k-2].z( l[k-2], l[k-1] )
-      //for i in [k-3 to 0 by -1]
-      //  n = pairings[i].z( l[i], n )
-      //n
+      let k = l.length
+      if( k !== arity) return
+      let n = pairings[k-2].z( l[k-2], l[k-1] )
+      for( let i=k-3; i>=0; i--) {
+        n = pairings[i].z( l[i], n )
+      }
+      return n
     },
     split: ( n ) => {
-      //[ x, y ] = pairings[0].xy( n )
-      //l = [ x ]
-      //if pairings.length > 1
-      //  for k from 1 til pairings.length
-      //    [ x, y ] = pairings[k].xy( y )
-      //    l.push x
-      //l.push y
-      //l
+      let [ x, y ] = pairings[0].xy( n )
+      let l = [ x ]
+      if( pairings.length > 1 ) {
+        for( let k = 1; k<pairings.length; k++ ) {
+          [ x, y ] = pairings[k].xy( y )
+          l.push( x )
+        }
+      }
+      l.push( y )
+      return l
     }
   }
 }
-*/
