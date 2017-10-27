@@ -34,6 +34,7 @@ console.log( pair.xy( 100 ) )
 Replace `p.Cantor` with e.g. `p.elegant` to try out the elegant pairing.
 
 ## Build
+
 Build from LiveScript: `lsc -co lib src`.
 
 ## Limitations
@@ -68,7 +69,7 @@ np = require("number-pairings")
 f = np.Cantor
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
 f.z(10,34)
-// =1024
+// => 1024
 f.xy(1024)
 // => [ 10, 34 ]
 f = np.elegant

@@ -12,7 +12,7 @@
 		"infinity"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
@@ -31,5 +31,14 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/j-k/number-pairings.git"
+	},
+	"scripts": {
+		"build": "lsc -co lib src/ls",
+		"es2015": "babel src/es2015 -d lib"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-latest": "^6.24.1",
+		"livescript": "^1.5.0"
 	}
 }
