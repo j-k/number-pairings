@@ -23,11 +23,11 @@ This JavaSript nodejs module is written in [LiveScript](http://livescript.net/).
 ## Usage
 
 ```javascript
-np = require( "number-pairings" )
-pair = np.Cantor
-console.log( pair.xy( 100 ) )
+let np = require( "number-pairings" )
+let pair = np.Cantor
+console.log( pair.split( 100 ) )
 // => [ 4, 9 ]
-> console.log( pair.z( 4, 9 ) )
+> console.log( pair.join( 4, 9 ) )
 // => 100
 ```
 
@@ -50,71 +50,55 @@ Build from LiveScript: `lsc -co lib src`.
 
 ## License
 
-See license file in the repository.
+MIT, see license file in the repository.
 
 ## Examples
 
 ```javascript
 np = require("number-pairings")
 /* =>
-{ Cantor: { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] },
-  elegant: { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] },
-  poto: { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] },
-  half: { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] },
+{ Cantor: [Function: Cantor],
+  elegant: [Function: elegant],
+  poto: [Function: poto],
+  half: [Function: half],
   field: [Function: field],
-  stack_y: [Function: stack_y],
   stack_x: [Function: stack_x],
-  composition: [Function: composition] }
+  stack_y: [Function: stack_y] }
+
 */
 f = np.Cantor
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.z(10,34)
-// => 1024
-f.xy(1024)
-// => [ 10, 34 ]
+f.join(10,34) // => 1024
+f.split(1024) // => [ 10, 34 ]
 f = np.elegant
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.z(10,34)
-// => 1200
-f.xy(1200)
-// => [ 10, 34 ]
+f.join(10,34) // => 1200
+f.split(1200) // => [ 10, 34 ]
 f = np.poto
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.z(10,34)
-// => 70655
-f.xy(70655)
-// => [ 10, 34 ]
+f.join(10,34) // => 70655
+f.split(70655) // => [ 10, 34 ]
 f = np.half
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.z(10,34)
-// => 605
-f.z(34,10)
-// => 605
-f.xy(605)
-// => [ 34, 10 ]
-f = np.field(2,3)
+f.join(10,34) // => 605
+f.join(34,10) // => 605
+f.split(605) // => [ 10, 34 ]
+f = new np.field(2,3)
 // => { z: [Function: z], xy: [Function: xy], b: [ 2, 3, 6 ] }
-f.z(1,2)
-// => 5
-f.z(2,2)
-undefined
+f.join(1,2) // => 5
+f.join(2,2) // => undefined
 f = np.stack_x(5)
 // => { z: [Function: z], xy: [Function: xy], b: [ 0, 5, 0 ] }
-f.z(2,4)
-// => 14
-f.z(2,5)
-// => undefined
+f.join(2,4) // => 14
+f.join(2,5) // => undefined (out of bound)
 // note: use stack_y the same way
-f.xy(14)
-// => [ 2, 4 ]
-f = np.composition([1,2,3,4])
+f.split(14) // => [ 2, 4 ]
+f = new np.composition([1,2,3,4])
 /* =>
 { b: [ 1, 2, 3, 4, 24 ],
   join: [Function: join],
   split: [Function: split] }
 */
-f.join([0,1,2,3])
-// => 23
-f.split(23)
-// => [ 0, 1, 2, 3 ]
+f.join([0,1,2,3]) // => 23
+f.split(23) // => [ 0, 1, 2, 3 ]
 ```
