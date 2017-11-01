@@ -24,65 +24,68 @@ const pushFront = function(e, a){ return [e].concat(a); };
 
 // Cantor pairing
 export class Cantor {
-  static join( x, y ) { return tn( x + y ) + y }
-  static split( z ) {
+  join( x, y ) { return tn( x + y ) + y }
+  split( z ) {
     let t = tr( z )
     return [
       ( t * ( t + 3 ) / 2 ) - z,
       z - ( ( t * ( t + 1 ) ) / 2 )
     ]
   }
-  static bound() { return 0 }
+  bounds() { return [0, 0, 0] }
 }
 
 // elegant pairing
 export class elegant {
-  static join ( x, y ) {
+  join ( x, y ) {
     if ( y >= x )
       return y * ( y + 1 ) + x;
     else
       return x * x + y;
   }
-  static split ( z ) {
+  split ( z ) {
     let sq_z = sq( z )
     if ( sq_z * sq_z > z ) sq_z--
     let t = z - sq_z * sq_z
     if (t < sq_z) return [ sq_z, t ]
     else return [ t - sq_z, sq_z ]
   }
-  static bound() { return 0 }
+  bounds() { return [0, 0, 0] }
 }
 
 // power of two pairing
 export class poto {
-  static join ( x, y ) {
+  join ( x, y ) {
     return pow( 2, x ) * ( 2 * y + 1 ) - 1
   }
-  static split ( z ) {
-    let _z = z + 1
-    for( let x=0; x<_z; x++ ) {
-      let p = fl( pow( 2, x ) )
-      let q = _z / p
-      if( q % 2 === 1 )
-        return [ x, fl( q / 2 ) ]
+  split ( z ) {
+    let _z, i$, x, p, q;
+    _z = z + 1;
+    for (i$ = 0; i$ < _z; ++i$) {
+      x = i$;
+      p = fl(pow(2, x));
+      q = _z / p;
+      if (q % 2 === 1) {
+        return [x, fl(q / 2)];
+      }
     }
   }
-  static bound() { return 0 }
+  bounds() { return [0, 0, 0] }
 }
 
 // half pairing (only x<=y pairs)
 export class half {
-  static join ( x, y ) {
+  join ( x, y ) {
     let _x = max( x, y )
     let _y = min( x, y )
     return tn( _x ) + _y
   }
-  static split ( z ) {
+  split ( z ) {
     let x = ext( z )
     let y = tr( z )
     return [ x, y ]
   }
-  static bound() { return 0 }
+  bounds() { return [0, 0, 0] }
 }
 
 // finite/finite pairing
@@ -102,7 +105,7 @@ export class field {
     if( z < this._sz )
       return [ z % this.sx, fl( z / this.sx ) ]
   }
-  static bound() { return this._sz }
+  bounds() { return [this._sx, this._sy, this._z] }
 }
 
 // x is infinite and y is finite
@@ -117,7 +120,7 @@ export class stack_x {
   split ( z ) {
     return [ fl( z / this._sy ), z % this._sy ]
   }
-  static bound() { return 0 }
+  bounds() { return [0, this._sy, 0] }
 }
 
 // x is finite y is infinite
@@ -132,7 +135,7 @@ export class stack_y {
   split ( z ) {
     return [ z % this._sx, fl( z / this._sx ) ]
   }
-  static bound() { return 0 }
+  bound() { return [ this._x, 0, 0 ] }
 }
 
 // default infinite-infinite pairing
@@ -141,9 +144,9 @@ const def_iip = Cantor
 // selection
 const select = ( x, y, iip = def_iip ) => {
   if( x === 0 && y === 0 ) return iip
-  else if( x === 0 ) return stack_x( y )
-  else if( y === 0 ) return stack_y( x )
-  else return field( x, y )
+  else if( x === 0 ) return new stack_x( y )
+  else if( y === 0 ) return new stack_y( x )
+  else return new field( x, y )
 }
 
 // composition
@@ -151,20 +154,17 @@ export class composition  {
   constructor( l, iip = def_iip ) {
     this._arity = l.length
     this._iip = def_iip
-    for( let i = 0; i < arity; i++ ) {
-      if( l[i] === 0 ) return
+    this._pairings = [ select( l[this._arity-2], l[this._arity-1] ) ]
+    for( let i = this._arity-3; i >= 0; i-- ) {
+      //let new_pairing = select( l[i], this._pairings[0].bound(), iip )
+      //this._pairings = pushFront( new_pairing, this._pairings )
     }
-    this.pairings = [ select( l[this._arity-2], l[this._arity-1] ) ]
-    for( let i=this._arity-3; i>=0; i-- ) {
-      let new_pairing = select( l[i], this.pairings[0].bound(), iip )
-      this.pairings = pushFront( new_pairing, this.pairings )
-    }
-    this.bounds = l.concat( [ this.pairings[0].bound() ] )
+    //this._bounds = l.concat( [ this._pairings[0].bound() ] )
   }
-  join( l ) {
-    for( let i = 0; i<arity; i++)
+  /*join( l ) {
+    for( let i = 0; i<this.arity; i++)
       if( l[i] >= this.bounds[i] && this.bounds[i] > 0 ) return
-    if( k !== arity) return
+    if( k !== this.arity) return
     let k = l.length
     let n = this.pairings[k-2].join( l[k-2], l[k-1] )
     for( let i=k-3; i>=0; i--)
@@ -172,7 +172,7 @@ export class composition  {
     return n
   }
   split( n ) {
-    if( n >= b[arity] && b[arity] > 0 ) return
+    if( n >= b[this.arity] && b[this.arity] > 0 ) return
     let [ x, y ] = this.pairings[0].split( n )
     let l = [ x ]
     if( this.pairings.length > 1 )
@@ -182,5 +182,5 @@ export class composition  {
       }
     l.push( y )
     return l
-  }
+  }*/
 }
