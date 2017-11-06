@@ -4,15 +4,19 @@
 	"keywords": [
 		"javascript",
 		"livescript",
+    "ES2015",
+    "babel",
 		"pairing",
 		"pairings",
 		"Cantor",
 		"Gödel",
+    "Goedel",
 		"diagonalization",
-		"infinity"
+		"infinity",
+    "numbers"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.5.0",
+	"version": "1.6.0",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
@@ -33,8 +37,9 @@
 		"url": "https://github.com/j-k/number-pairings.git"
 	},
 	"scripts": {
-		"build": "lsc -co lib src/ls",
-		"es2015": "babel src/es2015 -d lib"
+		"livescript": "lsc -co lib src/ls",
+		"es2015": "babel src/es2015 -d lib",
+    "build": "npm run es2015"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",

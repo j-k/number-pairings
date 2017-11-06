@@ -59,7 +59,10 @@ export class poto {
     return pow( 2, x ) * ( 2 * y + 1 ) - 1
   }
   split ( z ) {
-    let _z, i$, x, p, q;
+    // this is the transpiled code from LiveScript
+    // another "own" try didn't work
+    // -> find out why
+    var _z, i$, x, p, q;
     _z = z + 1;
     for (i$ = 0; i$ < _z; ++i$) {
       x = i$;
@@ -103,9 +106,9 @@ export class field {
   }
   split ( z ) {
     if( z < this._sz )
-      return [ z % this.sx, fl( z / this.sx ) ]
+      return [ z % this._sx, fl( z / this._sx ) ]
   }
-  bounds() { return [this._sx, this._sy, this._z] }
+  bounds() { return [this._sx, this._sy, this._sz] }
 }
 
 // x is infinite and y is finite
@@ -118,7 +121,9 @@ export class stack_x {
     return y % this._sy + this._sy * x
   }
   split ( z ) {
-    return [ fl( z / this._sy ), z % this._sy ]
+    let x = fl( z / this._sy )
+    let y = z % this._sy
+    return [ x, y ]
   }
   bounds() { return [0, this._sy, 0] }
 }
@@ -135,7 +140,7 @@ export class stack_y {
   split ( z ) {
     return [ z % this._sx, fl( z / this._sx ) ]
   }
-  bound() { return [ this._x, 0, 0 ] }
+  bounds() { return [ this._sx, 0, 0 ] }
 }
 
 // default infinite-infinite pairing
@@ -143,7 +148,7 @@ const def_iip = Cantor
 
 // selection
 const select = ( x, y, iip = def_iip ) => {
-  if( x === 0 && y === 0 ) return iip
+  if( x === 0 && y === 0 ) return new iip
   else if( x === 0 ) return new stack_x( y )
   else if( y === 0 ) return new stack_y( x )
   else return new field( x, y )
@@ -153,34 +158,35 @@ const select = ( x, y, iip = def_iip ) => {
 export class composition  {
   constructor( l, iip = def_iip ) {
     this._arity = l.length
-    this._iip = def_iip
-    this._pairings = [ select( l[this._arity-2], l[this._arity-1] ) ]
+    this._iip = new def_iip
+    let first = select( l[this._arity-2], l[this._arity-1] )
+    this._pairings = [ first ]
     for( let i = this._arity-3; i >= 0; i-- ) {
-      //let new_pairing = select( l[i], this._pairings[0].bound(), iip )
-      //this._pairings = pushFront( new_pairing, this._pairings )
+      let new_pairing = select( l[i], this._pairings[0].bounds()[2], iip )
+      this._pairings = pushFront( new_pairing, this._pairings )
     }
-    //this._bounds = l.concat( [ this._pairings[0].bound() ] )
+    this._bounds = l.concat( [ this._pairings[0].bounds()[2] ] )
   }
-  /*join( l ) {
-    for( let i = 0; i<this.arity; i++)
-      if( l[i] >= this.bounds[i] && this.bounds[i] > 0 ) return
-    if( k !== this.arity) return
+  join( l ) {
+    for( let i = 0; i<this._arity; i++)
+      if( l[i] >= this._bounds[i] && this._bounds[i] > 0 ) return
     let k = l.length
-    let n = this.pairings[k-2].join( l[k-2], l[k-1] )
-    for( let i=k-3; i>=0; i--)
-      n = this.pairings[i].join( l[i], n )
+    if( k !== this._arity) return
+    let n = this._pairings[k-2].join( l[k-2], l[k-1] )
+    for( let i=k-3; i>=0; i-- )
+      n = this._pairings[i].join( l[i], n )
     return n
   }
   split( n ) {
-    if( n >= b[this.arity] && b[this.arity] > 0 ) return
-    let [ x, y ] = this.pairings[0].split( n )
+    if( n >= this._bounds[this._arity] && this._bounds[this._arity] > 0 ) return
+    let [ x, y ] = this._pairings[0].split( n )
     let l = [ x ]
-    if( this.pairings.length > 1 )
-      for( let k = 1; k<this.pairings.length; k++ ) {
-        [ x, y ] = this.pairings[k].split( y )
+    if( this._pairings.length > 1 )
+      for( let k = 1; k<this._pairings.length; k++ ) {
+        [ x, y ] = this._pairings[k].split( y )
         l.push( x )
       }
     l.push( y )
     return l
-  }*/
+  }
 }
