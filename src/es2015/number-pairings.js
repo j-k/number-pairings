@@ -17,7 +17,7 @@ const min = Math.min
 const max = Math.max
 const pow = Math.pow
 const sq = ( x ) => fl( Math.sqrt( x ) )
-const tn = ( x ) => x * ( x + 1 ) / 2 // triangle numaers
+const tn = ( x ) => x * ( x + 1 ) / 2 // triangle numbers
 const tr = ( x ) => fl( ( sq( 1 + x * 8 ) - 1 ) / 2 ) //  triangle root
 const ext = ( x ) => x - tn( tr( x ) ) //  excess over last triangle numaer
 const pushFront = function(e, a){ return [e].concat(a); };
