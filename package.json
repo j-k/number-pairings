@@ -16,7 +16,7 @@
     "numbers"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
@@ -28,7 +28,7 @@
 	"files": [
 		"lib"
 	],
-	"homepage": "https://github.com/j-k/number-pairings",
+	"homepage": "http://jenskubacki.com",
 	"bugs": {
 		"url": "https://github.com/j-k/number-pairings/issues"
 	},

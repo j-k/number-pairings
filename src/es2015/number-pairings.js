@@ -154,7 +154,7 @@ const select = ( x, y, iip = def_iip ) => {
   else return new field( x, y )
 }
 
-// composition
+// composition operator
 export class composition  {
   constructor( l, iip = def_iip ) {
     this._arity = l.length

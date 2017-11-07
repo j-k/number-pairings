@@ -10,7 +10,9 @@ This is a fun project about [pairing functions](https://en.wikipedia.org/wiki/Pa
 - [elegant pairing](https://www.google.ch/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjUtpeoj_bRAhXDVxoKHYJBCGwQFggoMAA&url=http%3A%2F%2Fszudzik.com%2FElegantPairing.pdf&usg=AFQjCNHlytYIHiOiE0jqc8McfJwheyft8g) (`elegant`).
 - [POTO pairing](https://ch.mathworks.com/matlabcentral/fileexchange/44253-three-different-bijections-or-pairing-functions-between-n-and-n%5E2--including-cantor-polynomials-) (`poto`). The formulas are derived from [here](http://www.cs.umb.edu/~marc/cs620/theo10-06.pdf).
 
-This JavaSript nodejs module is written in [LiveScript](http://livescript.net/). The JavaScript library resides in the `lib` folder.
+There is also a **composition operator** available that can mix arbitrary (finite and infinite) pairings recursively. With this operator it is possible to encode lists of natural numbers into a single number.
+
+This JavaSript nodejs module is written in ES2015 and transpiled with [babel](https://babeljs.io/). The module resides in the `lib` folder.
 
 ## Installation
 
@@ -23,15 +25,15 @@ This JavaSript nodejs module is written in [LiveScript](http://livescript.net/).
 ## Usage
 
 ```javascript
-let np = require( "number-pairings" )
-let pair = np.Cantor
+const np = require( "number-pairings" )
+let pair = new np.Cantor()
 console.log( pair.split( 100 ) )
 // => [ 4, 9 ]
-> console.log( pair.join( 4, 9 ) )
+console.log( pair.join( 4, 9 ) )
 // => 100
 ```
 
-Replace `p.Cantor` with e.g. `p.elegant` to try out the elegant pairing.
+Replace `np.Cantor` with e.g. `np.elegant` to try out the elegant pairing.
 
 ## Build
 
@@ -39,7 +41,7 @@ Build from LiveScript: `lsc -co lib src`.
 
 ## Limitations
 
-- There are no overflow checks. Since the `z` is always in the order of a multiplication of `x` and `y` the library only works up to some numbers. There are no warnings given.
+- There are no overflow checks. Since the `z` (result of the `join` functions) is always in the order of a multiplication of `x` and `y` (results of the `split` functions) the library only works up to some numbers. There are no warnings given. Use with caution.
 - There are other possible number pairings that could be included (e.g. [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering)). Some of them are not "dense", i.e. more than one pair may encode a number. Here the focus is on dense pairings.
 
 ## Further links
@@ -55,50 +57,29 @@ MIT, see license file in the repository.
 ## Examples
 
 ```javascript
-np = require("number-pairings")
-/* =>
-{ Cantor: [Function: Cantor],
-  elegant: [Function: elegant],
-  poto: [Function: poto],
-  half: [Function: half],
-  field: [Function: field],
-  stack_x: [Function: stack_x],
-  stack_y: [Function: stack_y] }
-
-*/
-f = np.Cantor
-// => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.join(10,34) // => 1024
-f.split(1024) // => [ 10, 34 ]
-f = np.elegant
-// => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.join(10,34) // => 1200
-f.split(1200) // => [ 10, 34 ]
-f = np.poto
-// => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.join(10,34) // => 70655
-f.split(70655) // => [ 10, 34 ]
-f = np.half
-// => { z: [Function: z], xy: [Function: xy], b: [ 0, 0, 0 ] }
-f.join(10,34) // => 605
-f.join(34,10) // => 605
-f.split(605) // => [ 10, 34 ]
-f = new np.field(2,3)
-// => { z: [Function: z], xy: [Function: xy], b: [ 2, 3, 6 ] }
-f.join(1,2) // => 5
-f.join(2,2) // => undefined
-f = np.stack_x(5)
-// => { z: [Function: z], xy: [Function: xy], b: [ 0, 5, 0 ] }
-f.join(2,4) // => 14
-f.join(2,5) // => undefined (out of bound)
-// note: use stack_y the same way
-f.split(14) // => [ 2, 4 ]
-f = new np.composition([1,2,3,4])
-/* =>
-{ b: [ 1, 2, 3, 4, 24 ],
-  join: [Function: join],
-  split: [Function: split] }
-*/
-f.join([0,1,2,3]) // => 23
-f.split(23) // => [ 0, 1, 2, 3 ]
+const np = require("number-pairings")
+p = new np.Cantor()
+p.join(10,34) // => 1024
+p.split(1024) // => [ 10, 34 ]
+p = new np.elegant()
+p.join(10,34) // => 1200
+p.split(1200) // => [ 10, 34 ]
+p = new np.poto()
+p.join(10,34) // => 70655
+p.split(70655) // => [ 10, 34 ]
+p = new np.half()
+p.join(10,34) // => 605
+p.join(34,10) // => 605
+p.split(605) // => [ 10, 34 ]
+p = new np.field(2,3)
+p.join(1,2) // => 5
+p.join(2,2) // => undefined (out of bound)
+p = new np.stack_x(5)
+p.join(2,4) // => 14
+p.join(2,5) // => undefined (out of bound)
+// note: use stack_y the same way as stack_x
+p.split(14) // => [ 2, 4 ]
+p = new np.composition([1,2,3,4])
+p.join([0,1,2,3]) // => 23
+p.split(23) // => [ 0, 1, 2, 3 ]
 ```
