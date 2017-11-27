@@ -2,10 +2,6 @@
 	"name": "number-pairings",
 	"description": "JavaScript number pairings functions",
 	"keywords": [
-		"javascript",
-		"livescript",
-    "ES2015",
-    "babel",
 		"pairing",
 		"pairings",
 		"Cantor",
