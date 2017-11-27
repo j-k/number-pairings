@@ -26,7 +26,7 @@ This JavaSript module is written in ES2015 and transpiled with [babel](https://b
 
 ```javascript
 const np = require( "number-pairings" )
-let pair = new np.Cantor()
+let pair = np.Cantor()
 console.log( pair.split( 100 ) )
 // => [ 4, 9 ] ( = [x, y] )
 console.log( pair.join( 4, 9 ) )
