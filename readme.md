@@ -58,29 +58,33 @@ MIT, see license file in the repository.
 
 ```javascript
 const np = require("number-pairings")
-p = new np.Cantor()
-p.join(10,34) // => 1024
-p.split(1024) // => [ 10, 34 ]
-p = new np.elegant()
-p.join(10,34) // => 1200
-p.split(1200) // => [ 10, 34 ]
-p = new np.poto()
-p.join(10,34) // => 70655
-p.split(70655) // => [ 10, 34 ]
-p = new np.half()
-p.join(10,34) // => 605
-p.join(34,10) // => 605
-p.split(605) // => [ 10, 34 ]
-p = new np.field(2,3)
-p.join(1,2) // => 5
-p.join(2,2) // => undefined (out of bound)
-p.split(5) // => [ 1, 2 ]
-p = new np.stack_x(5)
-p.join(2,4) // => 14
-p.join(2,5) // => undefined (out of bound)
+let p = np.Cantor()
+p.join( 10, 34 ) // => 1024
+p.split( 1024 ) // => [ 10, 34 ]
+p = np.elegant()
+p.join( 10, 34 ) // => 1200
+p.split( 1200 ) // => [ 10, 34 ]
+p = np.poto()
+p.join( 10, 34 ) // => 70655
+p.split( 70655 ) // => [ 10, 34 ]
+p = np.half()
+p.join( 10, 34 ) // => 605
+p.join( 34, 10 ) // => 605
+p.split( 605 ) // => [ 10, 34 ]
+p = np.field( 2, 3 )
+p.join( 1, 2 ) // => 5
+p.join( 2, 2 ) // => undefined (out of bound)
+p.split( 5 ) // => [ 1, 2 ]
+p = np.stack_x( 5 )
+p.join( 2, 4 ) // => 14
+p.join( 2, 5 ) // => undefined (out of bound)
 // note: use stack_y the same way as stack_x
-p.split(14) // => [ 2, 4 ]
-p = new np.composition([1,2,3,4])
-p.join([0,1,2,3]) // => 23
-p.split(23) // => [ 0, 1, 2, 3 ]
+p.split( 14 ) // => [ 2, 4 ]
+p = np.composition( [ 2, 3, 4, 5 ] )
+p.join( [ 0, 1, 2, 3 ] ) // => 86
+p.split( 86 ) // => [ 0, 1, 2, 3 ]
+p.join( [ 1, 0, 0, 0 ] ) // => 1
+p.join( [ 0, 1, 0, 0 ] ) // => 2
+p.join( [ 0, 0, 1, 0 ] ) // => 6
+p.join( [ 0, 0, 0, 1 ] ) // => 24
 ```
