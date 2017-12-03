@@ -6,13 +6,13 @@
 		"pairings",
 		"Cantor",
 		"Gödel",
-    "Goedel",
+		"Goedel",
 		"diagonalization",
 		"infinity",
-    "numbers"
+		"numbers"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.7.1",
+	"version": "1.7.2",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
@@ -33,9 +33,7 @@
 		"url": "https://github.com/j-k/number-pairings.git"
 	},
 	"scripts": {
-		"livescript": "lsc -co lib src/ls",
-		"es2015": "babel src/es2015 -d lib",
-    "build": "npm run es2015"
+		"build": "babel src -d lib"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",

@@ -12,8 +12,6 @@ This is a fun project about [pairing functions](https://en.wikipedia.org/wiki/Pa
 
 There is also a **composition operator** available that can mix arbitrary (finite and infinite) pairings recursively. With this operator it is possible to encode lists of natural numbers into a single number and back.
 
-This JavaSript module is written in ES2015 and transpiled with [babel](https://babeljs.io/). The module resides in the `lib` folder. The source code can be found in the folder `src/es2015`. In `src/ls` some outdated [LifeScript](http://livescript.net/) code is kept that used to be the source earlier.
-
 ## Installation
 
 **Prerequisite**: [Node.js](https://nodejs.org/en/) needs to be installed.
