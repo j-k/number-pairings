@@ -122,7 +122,7 @@ const def_iip = Cantor
 
 // selection
 const select = ( x, y, iip = def_iip ) => {
-  if( x === 0 && y === 0 ) return iip
+  if( x === 0 && y === 0 ) return iip()
   else if( x === 0 ) return stack_x( y )
   else if( y === 0 ) return stack_y( x )
   else return field( x, y )
@@ -133,27 +133,31 @@ export function composition( l, iip = def_iip ) {
   const _arity = l.length
   const _iip = new def_iip
   let _pairings = [ select( l[_arity-2], l[_arity-1] ) ]
-  for( let i = _arity-3; i >= 0; i-- ) {
-    let new_pairing = select( l[i], _pairings[0].bounds()[2], iip )
-    _pairings = pushFront( new_pairing, _pairings )
+  if( _arity > 2 ) {
+    for( let i = _arity-3; i >= 0; i-- ) {
+      let new_pairing = select( l[i], _pairings[0].bounds()[2], iip )
+      _pairings = pushFront( new_pairing, _pairings )
+    }
   }
   const _bounds = l.concat( [ _pairings[0].bounds()[2] ] )
   return {
     join: ( l ) => {
-      for( let i = 0; i<_arity; i++)
-        if( l[i] >= _bounds[i] && _bounds[i] > 0 ) return
-      let k = l.length
+      const k = l.length
       if( k !== _arity) return
+      for( let i = 0; i<_arity; i++ )
+        if( l[i] >= _bounds[i] && _bounds[i] > 0 ) return
       let n = _pairings[k-2].join( l[k-2], l[k-1] )
-      for( let i=k-3; i>=0; i-- )
-        n = _pairings[i].join( l[i], n )
+      if( _arity > 2 ) {
+        for( let i=k-3; i>=0; i-- )
+          n = _pairings[i].join( l[i], n )
+      }
       return n
     },
     split: ( n ) => {
       if( n >= _bounds[_arity] && _bounds[_arity] > 0 ) return
       let [ x, y ] = _pairings[0].split( n )
       let l = [ x ]
-      if( _pairings.length > 1 )
+      if( _arity > 2 )
         for( let k = 1; k<_pairings.length; k++ ) {
           [ x, y ] = _pairings[k].split( y )
           l.push( x )

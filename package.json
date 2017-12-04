@@ -12,7 +12,7 @@
 		"numbers"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.7.3",
+	"version": "1.7.4",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
@@ -33,7 +33,7 @@
 		"url": "https://github.com/j-k/number-pairings.git"
 	},
 	"scripts": {
-		"build": "babel src -d lib"
+		"build": "babel -o lib/number-pairings.js src/number-pairings.js"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
