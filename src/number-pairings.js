@@ -63,9 +63,7 @@ export function elegant() {
 // power of two pairing
 export function poto() {
   return {
-    join: ( x, y ) => {
-      return pow( 2, x ) * ( 2 * y + 1 ) - 1
-    },
+    join: ( x, y ) => { return pow( 2, x ) * ( 2 * y + 1 ) - 1 },
     split: ( z ) => {
       var _z, i$, x, p, q;
       _z = z + 1;
@@ -73,9 +71,7 @@ export function poto() {
         x = i$;
         p = fl(pow(2, x));
         q = _z / p;
-        if (q % 2 === 1) {
-          return [x, fl(q / 2)];
-        }
+        if (q % 2 === 1) { return [x, fl(q / 2)]; }
       }
     },
     bounds: () => { return [ 0, 0, 0 ] }
@@ -85,12 +81,8 @@ export function poto() {
 // half pairing (only x <= y pairs)
 export function half() {
   return {
-    join: ( x, y ) => {
-      return tn( max( x, y ) ) + min( x, y )
-    },
-    split: ( z ) => {
-      return [ ext( z ), tr( z ) ]
-    },
+    join: ( x, y ) => { return tn( max( x, y ) ) + min( x, y ) },
+    split: ( z ) => { return [ ext( z ), tr( z ) ] },
     bounds: () => { return [ 0, 0, 0 ] }
   }
 }
@@ -99,14 +91,8 @@ export function half() {
 export function field( sx, sy ) {
   const sz = sx * sy
   return {
-    join: ( x, y ) => {
-      if( x < sx && y < sy )
-        return sx * y + x % sx
-    },
-    split: ( z ) => {
-      if( z < sz )
-        return [ z % sx, fl( z / sx ) ]
-    },
+    join: ( x, y ) => { if( x < sx && y < sy ) return sx * y + x % sx },
+    split: ( z ) => { if( z < sz ) return [ z % sx, fl( z / sx ) ] },
     bounds: () => { return [ sx, sy, sz ] }
   }
 }
@@ -115,13 +101,8 @@ export function field( sx, sy ) {
 // sy: size in y
 export function stack_x( sy ) {
   return {
-    join: ( x, y ) => {
-      if( y < sy )
-        return y % sy + sy * x
-    },
-    split: ( z ) => {
-      return [ fl( z / sy ), z % sy ]
-    },
+    join: ( x, y ) => { if( y < sy ) return y % sy + sy * x },
+    split: ( z ) => { return [ fl( z / sy ), z % sy ] },
     bounds: () => { return [ 0, sy, 0 ] }
   }
 }
@@ -130,14 +111,9 @@ export function stack_x( sy ) {
 // sx: size in x
 export function stack_y( sx ) {
   return {
-    join: ( x, y ) => {
-      if( x < sx )
-        return sx * y + x % sx
-    },
-    split: ( z ) => {
-      return [ z % _sx, fl( z / _sx ) ]
-    },
-    bounds: () => { return [ _sx, 0, 0 ] }
+    join: ( x, y ) => { if( x < sx ) return x % sx + sx * y },
+    split: ( z ) => { return [ z % sx, fl( z / sx ) ] },
+    bounds: () => { return [ sx, 0, 0 ] }
   }
 }
 
