@@ -132,7 +132,7 @@ const select = ( x, y, iip = def_iip ) => {
 export function composition( l, iip = def_iip ) {
   const _arity = l.length
   const _iip = new def_iip
-  let _pairings = [ select( l[_arity-2], l[_arity-1] ) ]
+  let _pairings = [ select( l[_arity-2], l[_arity-1], iip ) ]
   if( _arity > 2 ) {
     for( let i = _arity-3; i >= 0; i-- ) {
       let new_pairing = select( l[i], _pairings[0].bounds()[2], iip )
