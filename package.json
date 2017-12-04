@@ -12,7 +12,7 @@
 		"numbers"
 	],
 	"author": "Jens Kubacki",
-	"version": "1.7.2",
+	"version": "1.7.3",
 	"license": "MIT",
 	"engines": {
 		"node": ">=7.4.0"
